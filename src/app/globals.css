@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
+@theme {
+  --color-midnight: #102A43;
+  --color-deep-navy: #0B2A3F;
+  --color-enterprise: #2563EB;
+  --color-soft-blue: #EAF2FF;
+  --color-teal-accent: #0F9F8F;
+  --color-soft-teal: #DFF7F3;
+  --color-off-white: #F8FAF9;
+  --color-soft-bg: #F7FAFC;
+  --color-[#102A43]: #102A43;
+  --color-[#486581]: #486581;
+  --color-[#627D98]: #627D98;
+  --color-[#D9E2EC]: #D9E2EC;
+  
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFFFF;
+  --foreground: #102A43;
+  --card: #FFFFFF;
+  --card-foreground: #102A43;
+  --border: #D9E2EC;
+  --ring: #2563EB;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #071B2F;
+  --foreground: #F8FAFC;
+  --card: #0F2238;
+  --card-foreground: #F8FAFC;
+  --border: #1E3A5F;
+  --ring: #3B82F6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light dark;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+    color: #102A43;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Light enterprise card & surface depth utilities */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #D9E2EC;
+}
+
+.enterprise-card {
+  background: #FFFFFF;
+  border: 1px solid #D9E2EC;
+  box-shadow: 0 4px 20px rgba(16, 42, 67, 0.04);
+}
+
+.enterprise-card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.enterprise-card-hover:hover {
+  border-color: #2563EB;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+}
+
+.subtle-teal-wash {
+  background: radial-gradient(circle at 90% 10%, rgba(15, 159, 143, 0.06) 0%, rgba(255, 255, 255, 0) 60%);
+}
+
+.subtle-blue-wash {
+  background: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+/* Accessibility focus styles */
+:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
