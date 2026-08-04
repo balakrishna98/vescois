@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { DesktopNav } from "@/components/layout/desktop-nav";
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -47,16 +47,13 @@ export function Header() {
           >
             Contact
           </Link>
-          <a
-            href={siteConfig.calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={siteConfig.consultationUrl}
             className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] py-2.5 px-4.5 rounded-xl transition-all shadow-xs focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
           >
-            <Calendar className="w-3.5 h-3.5" />
-            <span>Book via Calendly</span>
+            <span>Schedule Consultation</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Nav Button */}

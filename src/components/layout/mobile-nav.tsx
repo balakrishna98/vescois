@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { Menu, X, ChevronRight, ArrowRight, Calendar } from "lucide-react";
+import { Menu, X, ChevronRight, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/lib/siteConfig";
 
 const emptySubscribe = () => () => {};
@@ -138,17 +138,14 @@ export function MobileNav() {
       </div>
 
       <div className="pt-5 space-y-3 border-t border-slate-200 mt-4 mb-2">
-        <a
-          href={siteConfig.calendlyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/contact"
           onClick={handleLinkClick}
           className="w-full flex items-center justify-center gap-2 py-3.5 min-h-[48px] px-5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm shadow-xs transition-all"
         >
-          <Calendar className="w-4 h-4" />
-          <span>Book via Calendly</span>
+          <span>Schedule Consultation</span>
           <ArrowRight className="w-4 h-4" />
-        </a>
+        </Link>
       </div>
     </div>
   );
