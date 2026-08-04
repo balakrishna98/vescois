@@ -7,6 +7,7 @@ export interface SiteConfig {
   contactEmail: string;
   linkedinUrl?: string;
   consultationUrl: string;
+  calendlyUrl: string;
   featureFlags: {
     showCareers: boolean;
     showInsights: boolean;
@@ -33,7 +34,8 @@ export const siteConfig: SiteConfig = {
   description:
     "Vescois is a trusted healthcare technology and medical coding company dedicated to delivering accurate, secure, and compliant coding services. We combine certified coding expertise with advanced healthcare IT solutions to help hospitals, clinics, physician groups, diagnostic centers, and healthcare organizations streamline operations, improve reimbursement, and maintain regulatory compliance.",
   contactEmail: "info@vescois.com",
-  consultationUrl: "/contact",
+  consultationUrl: "https://calendly.com/vescois/consultation",
+  calendlyUrl: "https://calendly.com/vescois/consultation",
   featureFlags: {
     showCareers: true,
     showInsights: true,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, ShieldCheck, Clock } from "lucide-react";
+import { Mail, ShieldCheck, Clock, Calendar, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { siteConfig } from "@/lib/siteConfig";
@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/siteConfig";
 export const metadata = {
   title: "Schedule a Consultation — Vescois",
   description:
-    "Schedule an operational consultation with Vescois healthcare operations, coding quality, and revenue cycle leaders.",
+    "Book an instant meeting via Calendly or submit an inquiry to Vescois healthcare operations, coding quality, and revenue cycle leaders.",
 };
 
 export default function ContactPage() {
@@ -20,15 +20,42 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="space-y-20 pb-24 bg-white">
+    <div className="space-y-16 sm:space-y-20 pb-24 bg-white">
       <PageHero
         eyebrow="Introductory Consultation"
         title="Let’s understand your workflow."
-        description="Share the operational challenge you are working through, and our healthcare operations leaders will reach out to discuss your needs."
+        description="Book a meeting instantly via Calendly or submit your operational details below to connect with our healthcare leadership team."
         breadcrumbs={[{ label: "Contact", href: "/contact" }]}
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Instant Calendly Booking Banner */}
+        <div className="bg-[#EAF2FF] border border-[#2563EB]/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 mb-12 shadow-xs">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#2563EB] text-white">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Instant Scheduling</span>
+            </div>
+            <h3 className="text-xl font-heading font-bold text-[#102A43]">
+              Prefer to book a 30-minute meeting right now?
+            </h3>
+            <p className="text-sm text-[#486581]">
+              Select a date and time directly on our Calendly calendar for an instant executive consultation.
+            </p>
+          </div>
+
+          <a
+            href={siteConfig.calendlyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm shadow-md transition-all shrink-0 w-full sm:w-auto justify-center"
+          >
+            <Calendar className="w-4 h-4" />
+            <span>Book via Calendly</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Reassuring Consultation Expectations Column */}
           <div className="lg:col-span-5 space-y-8">

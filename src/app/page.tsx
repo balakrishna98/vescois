@@ -7,9 +7,11 @@ import {
   Sparkles,
   ArrowUpRight,
   Clock,
+  Calendar,
 } from "lucide-react";
 import { CodingQueueMockup } from "@/components/marketing/coding-queue-mockup";
 import { insightArticles } from "@/data/insights";
+import { siteConfig } from "@/lib/siteConfig";
 
 export default function HomePage() {
   const trustPillars = [
@@ -100,13 +102,16 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2">
-              <Link
-                href="/contact"
+              <a
+                href={siteConfig.calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm sm:text-base shadow-xs transition-all focus:ring-2 focus:ring-[#2563EB]"
               >
-                <span>Schedule Consultation</span>
+                <Calendar className="w-4 h-4" />
+                <span>Book via Calendly</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
 
               <Link
                 href="/about"
@@ -396,13 +401,16 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
-            <Link
-              href="/contact"
+            <a
+              href={siteConfig.calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-blue-500 text-white font-semibold text-sm sm:text-base shadow-lg transition-all"
             >
-              <span>Schedule Consultation</span>
+              <Calendar className="w-4 h-4" />
+              <span>Book via Calendly</span>
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
 
             <Link
               href="/about"
