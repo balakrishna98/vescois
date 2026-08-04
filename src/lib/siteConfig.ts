@@ -90,9 +90,9 @@ export const siteConfig: SiteConfig = {
         description: "End-to-end billing execution, claim submission support, and payment posting coordination.",
       },
       {
-        title: "Denial Management",
-        href: "/services/denial-management",
-        description: "Root-cause denial analysis, systematic follow-up, and appeal prevention workflows.",
+        title: "POC Review",
+        href: "/services/poc-review",
+        description: "Comprehensive Plan of Care (485) documentation validation ensuring clinical alignment, order consistency, and compliance.",
       },
       {
         title: "Coding Audits",

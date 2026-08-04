@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/medical-coding",
     "/services/oasis-review",
     "/services/medical-billing",
-    "/services/denial-management",
+    "/services/poc-review",
     "/services/coding-audits",
     "/services/virtual-support",
     "/technology",
