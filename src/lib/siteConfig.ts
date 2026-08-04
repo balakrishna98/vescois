@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
   tagline: "Healthcare Intelligence. Delivered.",
   description:
     "Vescois is a trusted healthcare technology and medical coding company dedicated to delivering accurate, secure, and compliant coding services. We combine certified coding expertise with advanced healthcare IT solutions to help hospitals, clinics, physician groups, diagnostic centers, and healthcare organizations streamline operations, improve reimbursement, and maintain regulatory compliance.",
-  contactEmail: "hello@vescois.com",
+  contactEmail: "info@vescois.com",
   consultationUrl: "/contact",
   featureFlags: {
     showCareers: true,

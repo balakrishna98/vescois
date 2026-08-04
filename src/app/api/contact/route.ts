@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { renderInquiryEmailHtml, InquiryPayload } from "@/lib/email-template";
+import { renderInquiryEmailHtml, renderVisitorAutoReplyHtml, InquiryPayload } from "@/lib/email-template";
 
 const contactSchema = z.object({
   firstName: z.string().min(1),
@@ -34,16 +34,17 @@ export async function POST(request: Request) {
     };
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "inquiries@vescois.com";
-    const toEmail = process.env.CONTACT_TO_EMAIL || "hello@vescois.com";
+    const fromEmail = process.env.CONTACT_FROM_EMAIL || "info@vescois.com";
+    const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
-    // Development mode sanitized log (never logs PHI or full raw message body)
+    // Development mode sanitized log
     if (process.env.NODE_ENV !== "production") {
       console.log("[Vescois Contact Inquiry Received]:", {
         organization: payload.organization,
         orgType: payload.orgType,
         serviceInterest: payload.serviceInterest,
-        emailDomain: payload.workEmail.split("@")[1] || "unknown",
+        recipient: toEmail,
+        visitorEmail: payload.workEmail,
         timestamp: payload.submittedAt,
         resendConfigured: Boolean(resendApiKey),
       });
@@ -52,10 +53,12 @@ export async function POST(request: Request) {
     // Production Resend Email Dispatch
     if (resendApiKey) {
       try {
-        const emailSubject = `New Vescois inquiry — ${payload.organization}`;
-        const emailHtml = renderInquiryEmailHtml(payload);
+        const adminSubject = `New Vescois inquiry — ${payload.organization}`;
+        const adminHtml = renderInquiryEmailHtml(payload);
+        const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
-        const resendRes = await fetch("https://api.resend.com/emails", {
+        // 1. Send inquiry notification directly to info@vescois.com
+        await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -64,14 +67,26 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             from: fromEmail,
             to: [toEmail],
-            subject: emailSubject,
-            html: emailHtml,
+            reply_to: payload.workEmail,
+            subject: adminSubject,
+            html: adminHtml,
           }),
         });
 
-        if (!resendRes.ok) {
-          console.error("[Resend Email Transmission Error]: Status", resendRes.status);
-        }
+        // 2. Automatically send auto-reply to visitor's email
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${resendApiKey}`,
+          },
+          body: JSON.stringify({
+            from: fromEmail,
+            to: [payload.workEmail],
+            subject: "Thank you for contacting Vescois",
+            html: visitorHtml,
+          }),
+        });
       } catch (emailErr) {
         console.error("[Resend Dispatch Exception]:", emailErr);
       }
@@ -80,7 +95,7 @@ export async function POST(request: Request) {
     // Return clean user confirmation status
     return NextResponse.json({
       success: true,
-      message: "Consultation inquiry successfully logged.",
+      message: "Thank you for contacting Vescois. Our team will review your inquiry and respond within one business day.",
     });
   } catch {
     return NextResponse.json(

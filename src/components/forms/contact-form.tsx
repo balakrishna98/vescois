@@ -102,8 +102,8 @@ export function ContactForm() {
           <h3 className="text-2xl font-heading font-bold text-[#102A43]">
             Thank You for Reaching Out
           </h3>
-          <p className="text-[#486581] max-w-md mx-auto text-sm leading-relaxed">
-            Your inquiry has been logged. A Vescois healthcare operations representative will follow up via your preferred contact channel shortly.
+          <p className="text-[#486581] max-w-md mx-auto text-sm sm:text-base leading-relaxed font-medium">
+            Thank you for contacting Vescois. Our team will review your inquiry and respond within one business day.
           </p>
           <div className="pt-4">
             <button

@@ -43,7 +43,7 @@ export function renderInquiryEmailHtml(data: InquiryPayload): string {
   <title>New Vescois Inquiry — ${safeOrg}</title>
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f8fafc; color: #334155; margin: 0; padding: 20px;">
-  <div style="max-w: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+  <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
     
     <!-- Security Warning Banner -->
     <div style="background-color: #fef3c7; border: 1px solid #f59e0b; color: #92400e; padding: 12px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; margin-bottom: 24px;">
@@ -94,11 +94,39 @@ export function renderInquiryEmailHtml(data: InquiryPayload): string {
 
     <div style="margin-top: 20px; padding: 16px; background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
       <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 8px;">Message:</div>
-      <div style="font-size: 14px; color: #1e293b; leading-height: 1.5;">${safeMessage}</div>
+      <div style="font-size: 14px; color: #1e293b; line-height: 1.5;">${safeMessage}</div>
     </div>
 
     <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center;">
       Vescois Operations Platform — Healthcare Intelligence. Delivered.
+    </div>
+  </div>
+</body>
+</html>
+  `;
+}
+
+export function renderVisitorAutoReplyHtml(data: InquiryPayload): string {
+  const safeFirstName = sanitize(data.firstName);
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vescois — Inquiry Received</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f8fafc; color: #334155; margin: 0; padding: 20px;">
+  <div style="max-width: 560px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+    <h2 style="color: #071b2f; font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 12px;">Hello ${safeFirstName},</h2>
+    <p style="color: #334155; font-size: 15px; line-height: 1.6; margin-top: 0; margin-bottom: 20px;">
+      Thank you for contacting Vescois. Our team will review your inquiry and respond within one business day.
+    </p>
+    <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin-bottom: 24px;">
+      If you have additional details regarding your agency's coding volume, OASIS workflow, or revenue cycle goals, feel free to reply directly to this email.
+    </p>
+    <div style="padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b;">
+      <strong style="color: #071b2f; display: block; margin-bottom: 2px;">Vescois Client Engagement Team</strong>
+      <span>info@vescois.com • Healthcare Intelligence. Delivered.</span>
     </div>
   </div>
 </body>
