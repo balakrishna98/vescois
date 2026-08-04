@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck, Award, Lock, Sparkles, Handshake } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 
 export const metadata = {
-  title: "About Vescois — Our Story & Philosophy",
+  title: "About Vescois — Healthcare Technology & Medical Coding",
   description:
-    "Learn why Vescois exists, our operating story, and our commitment to precision, transparency, and trust in healthcare operations.",
+    "Vescois is a trusted healthcare technology and medical coding company dedicated to delivering accurate, secure, and compliant coding services and long-term client partnerships.",
 };
 
 export default function AboutPage() {
@@ -14,25 +14,62 @@ export default function AboutPage() {
     <div className="space-y-24 pb-24 bg-white">
       <PageHero
         eyebrow="Our Story & Philosophy"
-        title="Built on the belief that healthcare operations require discipline, precision, and trust."
-        description="Vescois was founded to help healthcare provider organizations bridge the gap between complex clinical documentation rules and dependable operational execution."
+        title="Trusted healthcare technology and medical coding."
+        description="Vescois is dedicated to delivering accurate, secure, and compliant coding services. We combine certified coding expertise with advanced healthcare IT solutions to help hospitals, clinics, physician groups, diagnostic centers, and healthcare organizations streamline operations, improve reimbursement, and maintain regulatory compliance."
         breadcrumbs={[{ label: "About", href: "/about" }]}
       />
+
+      {/* Core Focus & Values Banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="bg-[#F8FAF9] border border-[#D9E2EC] rounded-2xl p-6 space-y-3 shadow-xs">
+            <Award className="w-6 h-6 text-[#2563EB]" />
+            <h3 className="text-base font-heading font-bold text-[#102A43]">Quality First</h3>
+            <p className="text-xs text-[#486581] leading-relaxed">
+              Certified coding expertise and multi-tier auditing embedded into every daily batch.
+            </p>
+          </div>
+
+          <div className="bg-[#F8FAF9] border border-[#D9E2EC] rounded-2xl p-6 space-y-3 shadow-xs">
+            <Lock className="w-6 h-6 text-[#0D8A7D]" />
+            <h3 className="text-base font-heading font-bold text-[#102A43]">Confidentiality & Security</h3>
+            <p className="text-xs text-[#486581] leading-relaxed">
+              Least-privilege EHR credentialing and zero local PHI retention policies.
+            </p>
+          </div>
+
+          <div className="bg-[#F8FAF9] border border-[#D9E2EC] rounded-2xl p-6 space-y-3 shadow-xs">
+            <Sparkles className="w-6 h-6 text-[#2563EB]" />
+            <h3 className="text-base font-heading font-bold text-[#102A43]">Healthcare Innovation</h3>
+            <p className="text-xs text-[#486581] leading-relaxed">
+              Advanced healthcare IT solutions and workflow intelligence built for accuracy and speed.
+            </p>
+          </div>
+
+          <div className="bg-[#F8FAF9] border border-[#D9E2EC] rounded-2xl p-6 space-y-3 shadow-xs">
+            <Handshake className="w-6 h-6 text-[#0D8A7D]" />
+            <h3 className="text-base font-heading font-bold text-[#102A43]">Long-Term Partnership</h3>
+            <p className="text-xs text-[#486581] leading-relaxed">
+              Dedicated review teams acting as an extension of your internal clinical operations.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Narrative Section 1: Why Vescois Exists */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
         <div className="space-y-4">
           <span className="text-xs font-bold text-[#2563EB] tracking-wider uppercase font-mono">
-            01 / Why Vescois Exists
+            01 / Serving Healthcare Provider Organizations
           </span>
           <h2 className="text-3xl font-heading font-bold text-[#102A43] tracking-tight">
-            Healthcare operations are too important to rely on informal workflows.
+            Comprehensive operational support across healthcare sectors.
           </h2>
           <p className="text-base text-[#486581] leading-relaxed">
-            Across home health agencies, hospice providers, and medical groups, dedicated clinicians spend millions of hours delivering patient care. Yet downstream operations—diagnosis coding, OASIS consistency, billing accuracy, and quality audits—often suffer from fragmented queues, varying reviewer standards, and unpredictable turnaround times.
+            From home health agencies and hospice care to hospitals, clinics, physician groups, and diagnostic centers, healthcare provider organizations face growing documentation complexity and regulatory demands.
           </p>
           <p className="text-base text-[#486581] leading-relaxed">
-            Vescois was created to solve this operational friction. We combine specialized healthcare reviewers, structured quality frameworks, and intelligent workflow technology to give provider leaders complete confidence in their coding and documentation integrity.
+            Vescois bridges the gap between clinical documentation rules and dependable operational execution. By combining credentialed coders, structured QA frameworks, and modern technology, we ensure your organization operates with complete documentation integrity and financial health.
           </p>
         </div>
       </section>
@@ -42,16 +79,16 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
           <div className="space-y-4">
             <span className="text-xs font-bold text-[#0D8A7D] tracking-wider uppercase font-mono">
-              02 / Why Precision Matters
+              02 / Why Precision & Compliance Matter
             </span>
             <h2 className="text-3xl font-heading font-bold text-[#102A43] tracking-tight">
-              A single documentation error ripples through the entire organization.
+              Protecting compliance and accelerating reimbursement.
             </h2>
             <p className="text-base text-[#486581] leading-relaxed">
-              In modern healthcare reimbursement frameworks like PDGM, ICD-10 diagnosis specificity and OASIS functional scoring directly dictate clinical compliance, audit risk, and revenue integrity. A missed comorbidity or inconsistent functional score isn&apos;t just a clerical mistake—it creates avoidable claim denials, audit exposure, and operational delay.
+              Diagnosis coding specificity (ICD-10-CM/CPT/HCPCS), OASIS functional scoring, and Plan of Care consistency directly dictate clinical compliance, audit risk, and revenue performance. A single coding error creates avoidable denials, audit vulnerability, and revenue delay.
             </p>
             <p className="text-base text-[#486581] leading-relaxed">
-              That is why Vescois embeds multi-tier quality auditing into every daily review batch. Precision is not an afterthought; it is our core operating principle.
+              That is why Vescois embeds independent multi-tier quality auditing into every daily review batch. Precision is not an afterthought; it is our primary operating commitment.
             </p>
           </div>
         </div>
@@ -61,13 +98,13 @@ export default function AboutPage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
         <div className="space-y-4">
           <span className="text-xs font-bold text-[#2563EB] tracking-wider uppercase font-mono">
-            03 / Why Trust Matters
+            03 / Commitment to Trust & Security
           </span>
           <h2 className="text-3xl font-heading font-bold text-[#102A43] tracking-tight">
-            Trust is earned through transparency, security, and long-term partnership.
+            Built on confidentiality, transparency, and accountability.
           </h2>
           <p className="text-base text-[#486581] leading-relaxed">
-            Healthcare executives do not need distant software vendors; they need accountable operational partners. We operate under strict least-privilege EHR credentials, HIPAA-aligned safeguards, and transparent quality scorecards. Our client engagement leaders are centered in the United States, providing direct oversight and responsiveness.
+            Healthcare leaders need accountable, transparent operational partners. We function under strict least-privilege EHR credentials, HIPAA-aligned safeguards, and transparent quality scorecards with direct US client engagement oversight.
           </p>
           
           <div className="pt-4 border-l-2 border-[#0D8A7D] pl-4 text-xs text-[#486581] space-y-1">
@@ -89,7 +126,7 @@ export default function AboutPage() {
             Partner with Vescois
           </h2>
           <p className="text-slate-300 max-w-xl mx-auto text-sm leading-relaxed">
-            Discover how Vescois operational support helps your healthcare organization achieve precision and scalability.
+            Discover how Vescois medical coding and healthcare IT solutions help your organization achieve precision and compliance.
           </p>
           <div className="pt-2">
             <Link
