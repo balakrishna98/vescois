@@ -20,12 +20,12 @@ export function CodingQueueMockup() {
       turnaround: "1.4 hrs",
     },
     {
-      id: "COD-91204",
-      service: "ICD-10 Diagnosis Coding Audit",
-      discipline: "Diagnosis Specificity Check",
+      id: "REC-44108",
+      service: "Recertification Review",
+      discipline: "Care Plan & OASIS-E Alignment",
       status: "Coding Complete",
       statusColor: "text-[#2563EB] bg-[#EAF2FF] border-[#2563EB]/20",
-      turnaround: "42 mins",
+      turnaround: "48 mins",
     },
     {
       id: "ROC-33019",
@@ -36,12 +36,12 @@ export function CodingQueueMockup() {
       turnaround: "2.1 hrs",
     },
     {
-      id: "RCM-77102",
-      service: "Denial Risk Pre-Scrubbing",
-      discipline: "Payer Guideline Alignment",
-      status: "Scrub Clean",
+      id: "DC-55201",
+      service: "Discharge Assessment Review",
+      discipline: "Quality Indicator Verification",
+      status: "Auditor Verified",
       statusColor: "text-[#0D8A7D] bg-[#DFF7F3]/70 border-[#0D8A7D]/20",
-      turnaround: "55 mins",
+      turnaround: "35 mins",
     },
   ];
 
