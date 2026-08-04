@@ -1,17 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="v-primary" x1="2" y1="4" x2="22" y2="32" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB" />
-      <stop offset="1" stop-color="#071B2F" />
+    <!-- Left Cyan to Blue Gradient -->
+    <linearGradient id="vGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C6FF" />
+      <stop offset="100%" stop-color="#0066FF" />
     </linearGradient>
-    <linearGradient id="v-accent" x1="14" y1="4" x2="34" y2="32" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#22D3EE" />
-      <stop offset="0.6" stop-color="#2563EB" />
-      <stop offset="1" stop-color="#10B981" />
+    
+    <!-- Right Cyan to Emerald Green Gradient -->
+    <linearGradient id="vGradRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="50%" stop-color="#00C853" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <!-- Full V Gradient -->
+    <linearGradient id="vFullGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00B2FE" />
+      <stop offset="40%" stop-color="#0066FF" />
+      <stop offset="70%" stop-color="#00C853" />
+      <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
   </defs>
-  <rect width="36" height="36" rx="8" fill="#071B2F" />
-  <path d="M4 6L16 30C16.8 31.6 19.2 31.6 20 30L32 6" stroke="url(#v-accent)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M10 6L18 22L26 6" stroke="url(#v-primary)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85"/>
-  <circle cx="18" cy="22" r="2.5" fill="#10B981"/>
+
+  <!-- Background container for icon -->
+  <rect width="512" height="512" rx="128" fill="#FFFFFF" />
+  
+  <!-- Outer Double V Mark -->
+  <g transform="translate(64, 56) scale(0.75)">
+    <!-- Left outer line -->
+    <path
+      d="M 120 70 L 256 390 L 290 390 L 160 70 Z"
+      fill="url(#vGradLeft)"
+    />
+    <!-- Inner V line -->
+    <path
+      d="M 175 70 L 256 325 L 337 70 L 375 70 L 256 375 L 137 70 Z"
+      fill="url(#vFullGrad)"
+    />
+    <!-- Right outer line -->
+    <path
+      d="M 352 70 L 256 390 L 290 390 L 392 70 Z"
+      fill="url(#vGradRight)"
+    />
+  </g>
 </svg>

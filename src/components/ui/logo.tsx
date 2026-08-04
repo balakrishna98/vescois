@@ -12,41 +12,49 @@ export function VescoisSymbol({ className = "w-8 h-8" }: { className?: string })
   return (
     <svg
       className={className}
-      viewBox="0 0 36 36"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="vescois-v-primary" x1="2" y1="4" x2="22" y2="32" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#2563EB" />
-          <stop offset="1" stopColor="#0B2A3F" />
+        <linearGradient id="vLogoLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#00C6FF" />
+          <stop offset="100%" stopColor="#0066FF" />
         </linearGradient>
-        <linearGradient id="vescois-v-accent" x1="14" y1="4" x2="34" y2="32" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#0F9F8F" />
-          <stop offset="0.6" stopColor="#2563EB" />
-          <stop offset="1" stopColor="#0F9F8F" />
+
+        <linearGradient id="vLogoRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#00F2FE" />
+          <stop offset="60%" stopColor="#00C853" />
+          <stop offset="100%" stopColor="#10B981" />
+        </linearGradient>
+
+        <linearGradient id="vLogoFullGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#00B2FE" />
+          <stop offset="45%" stopColor="#0066FF" />
+          <stop offset="75%" stopColor="#00C853" />
+          <stop offset="100%" stopColor="#10B981" />
         </linearGradient>
       </defs>
-      {/* Primary forward angle stroke */}
-      <path
-        d="M4 6L16 30C16.8 31.6 19.2 31.6 20 30L32 6"
-        stroke="url(#vescois-v-accent)"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Parallel precision node connecting structure */}
-      <path
-        d="M10 6L18 22L26 6"
-        stroke="url(#vescois-v-primary)"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeOpacity="0.9"
-      />
-      {/* Precision focal point indicator */}
-      <circle cx="18" cy="22" r="2.5" fill="#0F9F8F" />
+
+      {/* Double Line Gradient V Mark */}
+      <g>
+        {/* Left parallel outer stroke */}
+        <path
+          d="M 22 18 L 50 82 L 57 82 L 30 18 Z"
+          fill="url(#vLogoLeftGrad)"
+        />
+        {/* Inner V core stroke */}
+        <path
+          d="M 33 18 L 50 68 L 67 18 L 75 18 L 50 78 L 25 18 Z"
+          fill="url(#vLogoFullGrad)"
+        />
+        {/* Right parallel outer stroke */}
+        <path
+          d="M 70 18 L 50 82 L 57 82 L 78 18 Z"
+          fill="url(#vLogoRightGrad)"
+        />
+      </g>
     </svg>
   );
 }
@@ -65,7 +73,7 @@ export function Logo({ className = "", symbolOnly = false, variant = "auto" }: L
       className={`inline-flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-lg p-1 transition-opacity hover:opacity-95 ${className}`}
       aria-label={`${siteConfig.name} - ${siteConfig.tagline}`}
     >
-      <VescoisSymbol className="w-8 h-8 transition-transform duration-300 group-hover:scale-105" />
+      <VescoisSymbol className="w-8.5 h-8.5 transition-transform duration-300 group-hover:scale-105" />
       {!symbolOnly && (
         <div className="flex flex-col">
           <span className={`font-heading font-bold text-xl tracking-tight leading-none ${textColorClass}`}>
