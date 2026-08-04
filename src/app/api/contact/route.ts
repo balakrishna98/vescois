@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     };
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "info@vescois.com";
+    const fromEmail = process.env.CONTACT_FROM_EMAIL || "Vescois <inquiries@vescois.com>";
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
     // Development mode sanitized log
@@ -43,6 +43,7 @@ export async function POST(request: Request) {
         organization: payload.organization,
         orgType: payload.orgType,
         serviceInterest: payload.serviceInterest,
+        sender: fromEmail,
         recipient: toEmail,
         visitorEmail: payload.workEmail,
         timestamp: payload.submittedAt,
