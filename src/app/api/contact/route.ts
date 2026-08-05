@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { Resend } from "resend";
 import { renderInquiryEmailHtml, renderVisitorAutoReplyHtml, InquiryPayload } from "@/lib/email-template";
 
 const contactSchema = z.object({
@@ -33,13 +34,11 @@ export async function POST(request: Request) {
       submittedAt: new Date().toISOString(),
     };
 
-    // Environment variable binding for both Node.js runtime and Cloudflare Worker global environment
     const resendApiKey =
       process.env.RESEND_API_KEY ||
       (globalThis as unknown as { RESEND_API_KEY?: string }).RESEND_API_KEY ||
       "";
-    
-    // Verified domain sender address
+
     const fromEmail = "Vescois <inquiries@vescois.com>";
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
@@ -57,52 +56,37 @@ export async function POST(request: Request) {
       });
     }
 
-    // Production Resend Email Dispatch
+    // Production Resend Email Dispatch using official Resend SDK
     if (resendApiKey) {
       try {
+        const resend = new Resend(resendApiKey);
         const adminSubject = `New Vescois inquiry — ${payload.organization}`;
         const adminHtml = renderInquiryEmailHtml(payload);
         const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
         // 1. Send inquiry notification containing all form data to info@vescois.com
-        const adminRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${resendApiKey}`,
-          },
-          body: JSON.stringify({
-            from: fromEmail,
-            to: [toEmail],
-            reply_to: payload.workEmail,
-            subject: adminSubject,
-            html: adminHtml,
-          }),
+        const adminResult = await resend.emails.send({
+          from: fromEmail,
+          to: [toEmail],
+          replyTo: payload.workEmail,
+          subject: adminSubject,
+          html: adminHtml,
         });
 
-        if (!adminRes.ok) {
-          const adminErrData = await adminRes.json();
-          console.error("[Resend Lead Notification Error]:", adminErrData);
+        if (adminResult.error) {
+          console.error("[Resend Lead Notification Error]:", adminResult.error);
         }
 
         // 2. Send Thank You auto-reply to visitor's email
-        const visitorRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${resendApiKey}`,
-          },
-          body: JSON.stringify({
-            from: fromEmail,
-            to: [payload.workEmail],
-            subject: "Thank you for contacting Vescois",
-            html: visitorHtml,
-          }),
+        const visitorResult = await resend.emails.send({
+          from: fromEmail,
+          to: [payload.workEmail],
+          subject: "Thank you for contacting Vescois",
+          html: visitorHtml,
         });
 
-        if (!visitorRes.ok) {
-          const visitorErrData = await visitorRes.json();
-          console.error("[Resend Visitor Thank You Note Error]:", visitorErrData);
+        if (visitorResult.error) {
+          console.error("[Resend Visitor Thank You Note Error]:", visitorResult.error);
         }
       } catch (emailErr) {
         console.error("[Resend Dispatch Exception]:", emailErr);
@@ -114,7 +98,8 @@ export async function POST(request: Request) {
       success: true,
       message: "Thank you for contacting Vescois. Our team will review your inquiry and respond within one business day.",
     });
-  } catch {
+  } catch (err) {
+    console.error("[Contact API Catch Error]:", err);
     return NextResponse.json(
       { error: "Invalid form payload or validation error" },
       { status: 400 }
