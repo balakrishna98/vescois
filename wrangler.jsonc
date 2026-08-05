@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vescois",
+  "compatibility_date": "2026-08-05",
+  "assets": {
+    "directory": ".next"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
