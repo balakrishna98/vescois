@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { renderInquiryEmailHtml, renderVisitorAutoReplyHtml, InquiryPayload } from "@/lib/email-template";
 
+export const runtime = "edge";
+
 const contactSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
@@ -55,7 +57,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // Production Resend Email Dispatch using pure fetch API (zero native binary dependencies)
+    // Production Resend Email Dispatch using pure fetch API
     if (resendApiKey) {
       try {
         const adminSubject = `New Vescois inquiry — ${payload.organization}`;
