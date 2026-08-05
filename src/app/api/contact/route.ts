@@ -33,8 +33,13 @@ export async function POST(request: Request) {
       submittedAt: new Date().toISOString(),
     };
 
-    const resendApiKey = process.env.RESEND_API_KEY;
-    // Always use the verified domain address inquiries@vescois.com
+    // Environment variable binding for both Node.js runtime and Cloudflare Worker global environment
+    const resendApiKey =
+      process.env.RESEND_API_KEY ||
+      (globalThis as unknown as { RESEND_API_KEY?: string }).RESEND_API_KEY ||
+      "";
+    
+    // Verified domain sender address
     const fromEmail = "Vescois <inquiries@vescois.com>";
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
