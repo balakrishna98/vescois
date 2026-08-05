@@ -34,14 +34,8 @@ export async function POST(request: Request) {
     };
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const rawFromEmail = process.env.CONTACT_FROM_EMAIL || "";
-    
-    // Verified domain sender
-    const fromEmail =
-      !rawFromEmail || rawFromEmail.includes("resend.dev")
-        ? "Vescois <inquiries@vescois.com>"
-        : rawFromEmail;
-
+    // Always use the verified domain address inquiries@vescois.com
+    const fromEmail = "Vescois <inquiries@vescois.com>";
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
     // Development mode sanitized log
@@ -65,7 +59,7 @@ export async function POST(request: Request) {
         const adminHtml = renderInquiryEmailHtml(payload);
         const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
-        // EMAIL 1: Send full inquiry payload data to info@vescois.com
+        // 1. Send inquiry notification containing all form data to info@vescois.com
         const adminRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -86,7 +80,7 @@ export async function POST(request: Request) {
           console.error("[Resend Lead Notification Error]:", adminErrData);
         }
 
-        // EMAIL 2: Send Thank You note to the sender (visitor's email)
+        // 2. Send Thank You auto-reply to visitor's email
         const visitorRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
