@@ -34,7 +34,13 @@ export async function POST(request: Request) {
     };
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "Vescois <inquiries@vescois.com>";
+    const rawFromEmail = process.env.CONTACT_FROM_EMAIL || "";
+    // If fromEmail is missing or still set to onboarding@resend.dev, force verified domain inquiries@vescois.com
+    const fromEmail =
+      !rawFromEmail || rawFromEmail.includes("resend.dev")
+        ? "Vescois <inquiries@vescois.com>"
+        : rawFromEmail;
+
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
     // Development mode sanitized log
@@ -59,7 +65,7 @@ export async function POST(request: Request) {
         const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
         // 1. Send inquiry notification directly to info@vescois.com
-        await fetch("https://api.resend.com/emails", {
+        const adminRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -74,8 +80,13 @@ export async function POST(request: Request) {
           }),
         });
 
+        if (!adminRes.ok) {
+          const adminErrData = await adminRes.json();
+          console.error("[Resend Admin Email Error]:", adminErrData);
+        }
+
         // 2. Automatically send auto-reply to visitor's email
-        await fetch("https://api.resend.com/emails", {
+        const visitorRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -88,6 +99,11 @@ export async function POST(request: Request) {
             html: visitorHtml,
           }),
         });
+
+        if (!visitorRes.ok) {
+          const visitorErrData = await visitorRes.json();
+          console.error("[Resend Visitor Email Error]:", visitorErrData);
+        }
       } catch (emailErr) {
         console.error("[Resend Dispatch Exception]:", emailErr);
       }
