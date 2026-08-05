@@ -36,15 +36,13 @@ export async function POST(request: Request) {
     const resendApiKey = process.env.RESEND_API_KEY;
     const rawFromEmail = process.env.CONTACT_FROM_EMAIL || "";
     
-    // Force verified domain sender
+    // Verified domain sender
     const fromEmail =
       !rawFromEmail || rawFromEmail.includes("resend.dev")
         ? "Vescois <inquiries@vescois.com>"
         : rawFromEmail;
 
-    // Send lead notification to both info@vescois.com and account email krishnamamidala98@gmail.com
-    const rawToEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com, krishnamamidala98@gmail.com";
-    const recipients = rawToEmail.split(",").map((e) => e.trim()).filter(Boolean);
+    const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
 
     // Development mode sanitized log
     if (process.env.NODE_ENV !== "production") {
@@ -53,7 +51,7 @@ export async function POST(request: Request) {
         orgType: payload.orgType,
         serviceInterest: payload.serviceInterest,
         sender: fromEmail,
-        recipients,
+        recipient: toEmail,
         visitorEmail: payload.workEmail,
         timestamp: payload.submittedAt,
         resendConfigured: Boolean(resendApiKey),
@@ -67,7 +65,7 @@ export async function POST(request: Request) {
         const adminHtml = renderInquiryEmailHtml(payload);
         const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
-        // 1. Send inquiry notification to lead recipients
+        // EMAIL 1: Send full inquiry payload data to info@vescois.com
         const adminRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -76,7 +74,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: fromEmail,
-            to: recipients,
+            to: [toEmail],
             reply_to: payload.workEmail,
             subject: adminSubject,
             html: adminHtml,
@@ -85,10 +83,10 @@ export async function POST(request: Request) {
 
         if (!adminRes.ok) {
           const adminErrData = await adminRes.json();
-          console.error("[Resend Admin Email Error]:", adminErrData);
+          console.error("[Resend Lead Notification Error]:", adminErrData);
         }
 
-        // 2. Automatically send auto-reply to visitor's email
+        // EMAIL 2: Send Thank You note to the sender (visitor's email)
         const visitorRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -105,7 +103,7 @@ export async function POST(request: Request) {
 
         if (!visitorRes.ok) {
           const visitorErrData = await visitorRes.json();
-          console.error("[Resend Visitor Email Error]:", visitorErrData);
+          console.error("[Resend Visitor Thank You Note Error]:", visitorErrData);
         }
       } catch (emailErr) {
         console.error("[Resend Dispatch Exception]:", emailErr);
