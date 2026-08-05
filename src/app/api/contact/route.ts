@@ -35,13 +35,16 @@ export async function POST(request: Request) {
 
     const resendApiKey = process.env.RESEND_API_KEY;
     const rawFromEmail = process.env.CONTACT_FROM_EMAIL || "";
-    // If fromEmail is missing or still set to onboarding@resend.dev, force verified domain inquiries@vescois.com
+    
+    // Force verified domain sender
     const fromEmail =
       !rawFromEmail || rawFromEmail.includes("resend.dev")
         ? "Vescois <inquiries@vescois.com>"
         : rawFromEmail;
 
-    const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
+    // Send lead notification to both info@vescois.com and account email krishnamamidala98@gmail.com
+    const rawToEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com, krishnamamidala98@gmail.com";
+    const recipients = rawToEmail.split(",").map((e) => e.trim()).filter(Boolean);
 
     // Development mode sanitized log
     if (process.env.NODE_ENV !== "production") {
@@ -50,7 +53,7 @@ export async function POST(request: Request) {
         orgType: payload.orgType,
         serviceInterest: payload.serviceInterest,
         sender: fromEmail,
-        recipient: toEmail,
+        recipients,
         visitorEmail: payload.workEmail,
         timestamp: payload.submittedAt,
         resendConfigured: Boolean(resendApiKey),
@@ -64,7 +67,7 @@ export async function POST(request: Request) {
         const adminHtml = renderInquiryEmailHtml(payload);
         const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
-        // 1. Send inquiry notification directly to info@vescois.com
+        // 1. Send inquiry notification to lead recipients
         const adminRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -73,7 +76,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: fromEmail,
-            to: [toEmail],
+            to: recipients,
             reply_to: payload.workEmail,
             subject: adminSubject,
             html: adminHtml,
