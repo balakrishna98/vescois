@@ -15,6 +15,11 @@ const cspHeader = `
 `.replace(/\s{2,}/g, " ").trim();
 
 const nextConfig: NextConfig = {
+  env: {
+    RESEND_API_KEY: process.env.RESEND_API_KEY || "",
+    CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL || "info@vescois.com",
+    CONTACT_FROM_EMAIL: "Vescois <inquiries@vescois.com>",
+  },
   async headers() {
     return [
       {
