@@ -2,8 +2,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "vescois",
   "compatibility_date": "2026-08-05",
-  "observability": {
-    "enabled": true
+  "assets": {
+    "directory": ".next"
   },
   "compatibility_flags": [
     "nodejs_compat"
