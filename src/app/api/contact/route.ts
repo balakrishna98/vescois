@@ -39,7 +39,12 @@ export async function POST(request: Request) {
       "";
 
     const fromEmail = "Vescois <inquiries@vescois.com>";
-    const toEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
+    const primaryToEmail = process.env.CONTACT_TO_EMAIL || "info@vescois.com";
+    
+    // Send lead notification to both info@vescois.com and account owner email krishnamamidala98@gmail.com
+    const leadRecipients = Array.from(
+      new Set([primaryToEmail, "krishnamamidala98@gmail.com"])
+    );
 
     // Development mode sanitized log
     if (process.env.NODE_ENV !== "production") {
@@ -48,7 +53,7 @@ export async function POST(request: Request) {
         orgType: payload.orgType,
         serviceInterest: payload.serviceInterest,
         sender: fromEmail,
-        recipient: toEmail,
+        recipients: leadRecipients,
         visitorEmail: payload.workEmail,
         timestamp: payload.submittedAt,
         resendConfigured: Boolean(resendApiKey),
@@ -62,7 +67,7 @@ export async function POST(request: Request) {
         const adminHtml = renderInquiryEmailHtml(payload);
         const visitorHtml = renderVisitorAutoReplyHtml(payload);
 
-        // 1. Send inquiry notification containing all form data to info@vescois.com
+        // 1. Send lead inquiry notification to info@vescois.com + krishnamamidala98@gmail.com
         const adminRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -71,7 +76,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: fromEmail,
-            to: [toEmail],
+            to: leadRecipients,
             reply_to: payload.workEmail,
             subject: adminSubject,
             html: adminHtml,
