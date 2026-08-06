@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { renderInquiryEmailHtml, renderVisitorAutoReplyHtml, InquiryPayload } from "@/lib/email-template";
 
-export const runtime = "edge";
-
 const contactSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
