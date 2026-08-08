@@ -13,9 +13,11 @@
 # testing
 /coverage
 
-# next.js
+# next.js & cloudflare build output
 /.next/
 /out/
+/.open-next/
+/.wrangler/
 
 # production
 /build

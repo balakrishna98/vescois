@@ -21,7 +21,7 @@ const interFont = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#071B2F",
   width: "device-width",
   initialScale: 1,
 };
@@ -35,9 +35,16 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    apple: "/favicon.svg",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   keywords: [
     "Home health medical coding services",
@@ -95,7 +102,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: siteConfig.name,
     url: `https://${siteConfig.domain}`,
-    logo: `https://${siteConfig.domain}/favicon.svg`,
+    logo: `https://${siteConfig.domain}/favicon-512x512.png`,
     description: siteConfig.description,
   };
 
